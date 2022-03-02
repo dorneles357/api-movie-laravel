@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MovieController;
+use App\Http\Controllers\Api\TagController;
 
 
 /*AUTH*/
@@ -47,6 +48,16 @@ Route::group([
     Route::get('/{id}', [MovieController::class, 'show']);
     Route::put('/update/{id}', [MovieController::class, 'update']);
     Route::delete('/delete/{id}', [MovieController::class, 'destroy']);
+});
+
+/*TAGS*/
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'tags',
+    'namespace' => 'App\Http\Controllers\Api'
+], function($router){
+    Route::post('/create', [TagController::class, 'store']);
+    Route::delete('/delete/{id}', [TagController::class, 'destroy']);
 });
 
 
