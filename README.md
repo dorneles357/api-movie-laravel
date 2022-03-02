@@ -73,17 +73,17 @@ Suba os containers do projeto
 docker-compose up -d
 ```
 
-Acessar o container
+Acesse o container
 ```sh
 docker-compose exec laravel_8 bash
 ```
 
-Instalar as dependências do projeto
+Instale as dependências do projeto
 ```sh
 composer install
 ```
 
-Gerar a key do projeto Laravel e as tabelas
+Gere as tabelas do projeto Laravel
 ```sh
 php artisan migrate
 ```
