@@ -85,7 +85,6 @@ composer install
 
 Gerar a key do projeto Laravel e as tabelas
 ```sh
-php artisan key:generate
 php artisan migrate
 ```
  
