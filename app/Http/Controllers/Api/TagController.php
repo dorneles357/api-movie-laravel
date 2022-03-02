@@ -13,6 +13,21 @@ class TagController extends Controller
 
     public function store(Request $request, $id)
     {
+        $movie = Movie::find($id);
+        $validator = validator()->make(request()->all(), [
+            'name' => 'string|required',
+        ]);
+
+        if(! $movie)
+        {
+            return response()->json(['message'=> 'File not found' ]);
+        }
+
+        if($validator->fails())
+        {
+            return response()->json(['message'=> 'Name cannot be empty' ]);
+        }
+
         $tag = Tag::create([
             "name"=> $request->name,
         ]);
@@ -28,7 +43,13 @@ class TagController extends Controller
     
     public function destroy($id)
     {
+
         $tag = Tag::find($id);
+
+        if(! $tag)
+        {
+            return response()->json(['message'=> 'File not found' ]);
+        }
 
         $tag->delete($tag);
 

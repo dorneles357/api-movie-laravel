@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
+
 class MovieController extends Controller
 {
 
@@ -72,6 +73,11 @@ class MovieController extends Controller
     {
         $movie = Movie::find($id);
 
+        if(! $movie)
+        {
+            return response()->json(['message'=> 'File not found' ]);
+        }
+
         $tag_array = [];
         foreach($movie->tags as $tag){
             array_push($tag_array, $tag);
@@ -86,11 +92,26 @@ class MovieController extends Controller
     }
 
     public function update(Request $request, $id)
-    {   $data = [
+    {
+
+        $validator = validator()->make(request()->all(), [
+            'name' => 'string|required',
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json(['message'=> 'Name cannot be empty' ]);
+        }
+        $data = [
             "name"=> $request->name,
         ];
 
         $movie = Movie::find($id);
+
+        if(! $movie)
+        {
+            return response()->json(['message'=> 'File not found' ]);
+        }
     
 
         $update_movie = $movie->update($data);
@@ -101,6 +122,11 @@ class MovieController extends Controller
     public function destroy($id)
     {
         $movie = Movie::find($id);
+
+        if(! $movie)
+        {
+            return response()->json(['message'=> 'File not found' ]);
+        }
         
         foreach($movie->tags as $tag)
         {
