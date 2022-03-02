@@ -26,7 +26,7 @@ Route::group([
 
 /*USERS*/
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'api.auth',
     'prefix' => 'users',
     'namespace' => 'App\Http\Controllers\Api'
 ], function($router){
@@ -37,7 +37,7 @@ Route::group([
 
 /*MOVIE CRUD*/
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'api.auth',
     'prefix' => 'movies',
     'namespace' => 'App\Http\Controllers\Api'
 ], function($router){
@@ -52,7 +52,7 @@ Route::group([
 
 /*TAGS*/
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'api.auth',
     'prefix' => 'tags',
     'namespace' => 'App\Http\Controllers\Api'
 ], function($router){
