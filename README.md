@@ -63,7 +63,7 @@ Neste caso será repassado o id da tag e não do filme. para criar uma tag nova,
 
 neste caso o id é o do filme ao qual a tag foi adicionada. As tags são criadas para um filme podendo ser reaproveitadas em outros videos.
 
-## Rodando A API
+## Rodando a API
 Agora vamos colocar a api para funcionar localmente! Primeiramente, clone o repositório para sua máquina local. Será necessário ter o docker e docker-compose instalado em seu computador.
 
      git clone https://github.com/dorneles357/api-movie-laravel.git
@@ -97,6 +97,12 @@ Acesse o projeto
 [http://localhost:8180/api/](http://localhost:8180/api/)
  
 
-<!-- ## Rode a Api junto com uma interface gráfica -->
+## Rode a Api junto com uma interface gráfica 
+
+Que tal uma interface gráfica para rodar junto com a API? 😎
+
+     https://github.com/dorneles357/app-movie.git
+
+Mas vai com calma ela ainda esta sendo construida... 👨🏾‍💻🛠️
 
 
