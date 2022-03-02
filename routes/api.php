@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MovieController;
+
 
 /*AUTH*/
 Route::group([
@@ -31,6 +33,22 @@ Route::group([
     Route::put('/update/{id}', [UserController::class, 'update']);
     Route::delete('/delete/{id}', [UserController::class, 'destroy']);
 });
+
+/*MOVIE CRUD*/
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'movies',
+    'namespace' => 'App\Http\Controllers\Api'
+], function($router){
+    Route::post('/create', [MovieController::class, 'store']);
+    Route::get('/index', [MovieController::class, 'index']);
+    Route::get('/index/orderby/asc', [MovieController::class, 'orderbyASC']);
+    Route::get('/index/orderby/desc', [MovieController::class, 'orderbyDESC']);
+    Route::get('/{id}', [MovieController::class, 'show']);
+    Route::put('/update/{id}', [MovieController::class, 'update']);
+    Route::delete('/delete/{id}', [MovieController::class, 'destroy']);
+});
+
 
 
 
