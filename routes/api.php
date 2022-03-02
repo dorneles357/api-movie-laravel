@@ -65,7 +65,7 @@ Route::group([
 
 
 Route::get('/', function(){ return response()->json([
-    'message'=> "Welcome! Brow!",
+    'message'=> "Welcome! Brow! 🥳",
     'Register'=> "http://localhost:8180/api/auth/register",
     'Login' => "http://localhost:8180/api/auth/login"
     ]);
