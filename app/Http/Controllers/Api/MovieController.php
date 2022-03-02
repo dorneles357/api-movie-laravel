@@ -72,7 +72,17 @@ class MovieController extends Controller
     {
         $movie = Movie::find($id);
 
-        return response()->json($movie);
+        $tag_array = [];
+        foreach($movie->tags as $tag){
+            array_push($tag_array, $tag);
+        }
+        
+        $data = [
+            'movie' => $movie,
+            'tags' => $tag_array
+        ];
+
+        return response()->json($data);
     }
 
     public function update(Request $request, $id)
@@ -91,7 +101,15 @@ class MovieController extends Controller
     public function destroy($id)
     {
         $movie = Movie::find($id);
+        
+        foreach($movie->tags as $tag)
+        {
+            $movie->tags()->detach($tag->id);
+        }
         Storage::delete($movie->path);
+
+        $movie->delete($movie);
+        
         return response()->json(['status'=>'deleted']);
     }
 }
