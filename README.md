@@ -4,7 +4,7 @@ Uma Api RESTFULL para organização de videos! faça o upload de seus arquivos e
 ## Como Funciona?
 API é muito simples! Ela conta com três grupos de rotas principais e uma para autenticação de usuários. Ou seja, exitem três parâmetros que facilitam o consumo do serviço. O primeiro é grupo de usuário, responsável pela conta e manutenção do perfil, o segundo é o grupo responsável pela criação e edição de videos e, por fim, o terceiro grupo que é responsável pela criação de tags.
 
-## Autentificação
+## Autenticação
 A autenticação de usuários funciona via [token](https://pt.wikipedia.org/wiki/Token_(chave_eletr%C3%B4nica)) no formato [json](https://www.json.org/json-en.htmljwt-). Para esta aplicação foi utilizado o [jwt-auth](https://jwt-auth.readthedocs.io/en/develop/). O acesso ao serviço funciona da seguinte forma, o usuário ao entrar pela  área de login receberá uma chave (neste caso o token) que validará seu acesso em todos os serviços da aplicação, se por acaso um usuário externo, não logado, tentar entrar sem essa chave ele será barrado e receberá um erro de acesso não autorizado.
 
 <img src="./public/img/api-auth.png" alt="sequência" width="600">
@@ -15,7 +15,7 @@ Com o seu arquivo já no sevidor você poderá edita-lo, exclui-lo, adiconar tag
 ## Como Usar?
 Neste tópico será documentado como utilizar as rotas da API. Vamos lá!
 ### Autenticação de usuários
-A rota de autenticação conta com um grupo de parametros expecífico para cada atribuição.
+A rota de autenticação conta com um grupo de parâmetros expecífico para cada atribuição.
 
 * [URL](http://localhost:8180)/auth/login   
 * [URL](http://localhost:8180)/auth/logout   
