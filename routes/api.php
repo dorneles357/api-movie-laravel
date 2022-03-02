@@ -56,7 +56,7 @@ Route::group([
     'prefix' => 'tags',
     'namespace' => 'App\Http\Controllers\Api'
 ], function($router){
-    Route::post('/create', [TagController::class, 'store']);
+    Route::post('/create/{id}', [TagController::class, 'store']);
     Route::delete('/delete/{id}', [TagController::class, 'destroy']);
 });
 
