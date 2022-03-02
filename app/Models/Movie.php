@@ -16,4 +16,9 @@ class Movie extends Model
         'size',
     ];
 
+    public function tags()
+	{
+		return $this->belongsToMany(Tag::class);
+	}
+
 }
