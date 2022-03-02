@@ -26,7 +26,7 @@ Route::group([
 
 /*USERS*/
 Route::group([
-    'middleware' => 'api.auth',
+    'middleware' => 'api',
     'prefix' => 'users',
     'namespace' => 'App\Http\Controllers\Api'
 ], function($router){
@@ -64,10 +64,11 @@ Route::group([
 
 
 
-
-
-
-/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function(){ return response()->json([
+    'message'=> "Welcome! Brow!",
+    'Register'=> "http://localhost:8180/api/auth/register",
+    'Login' => "http://localhost:8180/api/auth/login"
+    ]);
 });
- */
+ 
+
