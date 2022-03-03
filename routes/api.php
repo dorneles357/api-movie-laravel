@@ -26,7 +26,7 @@ Route::group([
 
 /*USERS*/
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'api.auth',
     'prefix' => 'users',
     'namespace' => 'App\Http\Controllers\Api'
 ], function($router){
