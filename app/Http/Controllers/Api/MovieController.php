@@ -20,7 +20,7 @@ class MovieController extends Controller
         return response()->json($movies);
     }
 
-    public function oderbyASC()
+    public function orderbyASC()
     {
         $movies = Movie::orderBy('name', 'asc')->get();
 
