@@ -15,7 +15,7 @@ Com o seu arquivo já no sevidor você poderá edita-lo, exclui-lo, adiconar tag
 ## Como Usar?
 Neste tópico será documentado como utilizar as rotas da API. Vamos lá!
 ### Autenticação de usuários
-A rota de autenticação conta com um grupo de parâmetros expecífico para cada atribuição.
+A rota de autenticação conta com um grupo de parâmetros específico para cada atribuição.
 
 * [URL](http://localhost:8180)/auth/login   
 * [URL](http://localhost:8180)/auth/logout   
@@ -81,6 +81,11 @@ docker-compose exec laravel_8 bash
 Instale as dependências do projeto
 ```sh
 composer install
+```
+
+Habilite as variáveis de ambiente. São as mesmas no arquivo .env.exemplo
+```
+cp .env.example .env
 ```
 
 Gere as tabelas do projeto Laravel
