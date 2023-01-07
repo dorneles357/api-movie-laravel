@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class Authcontroller extends Controller
@@ -30,8 +30,8 @@ class Authcontroller extends Controller
     public function login(Request $request)
     {
         $token = auth()->attempt([
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'email' => $request->email,
+            'password' => $request->password,
         ]);
 
         if (!$token) {
