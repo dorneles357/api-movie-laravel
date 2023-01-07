@@ -1,41 +1,48 @@
 <?php
- 
+
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
-    public function show($id)
+    /**
+     * @param int $id
+     * @return UserResource
+     */
+    public function show(int $id): UserResource
     {
-        $user = User::find($id);
-        return response()->json($user);
+        $user = User::findOrFail($id);
+        return UserResource::make($user);
     }
 
-    public function update(Request $request, $id)
-    {   $data = [
-            "name"=> $request->name,
-            "email"=> $request->email,
-            "password"=> $request->password
-        ];
+    /**
+     * @param UserUpdateRequest $request
+     * @param integer $id
+     * @return UserResource
+     */
+    public function update(UserUpdateRequest $request, int $id): UserResource
+    {
+        $user = User::findOrFail($id);
 
-        $user = User::find($id);
+        $user->update($request->toArray());
 
-       $user->update($data);
-
-        return response()->json(['status'=>'update']);
+        return UserResource::make($user);
     }
 
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function destroy(int $id): void
     {
         $user = User::find($id);
 
         $user->delete($user);
-
-        return response()->json(['status'=>'deleted']);
     }
 }
