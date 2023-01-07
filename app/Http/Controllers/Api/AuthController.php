@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 
 class Authcontroller extends Controller
@@ -15,26 +16,12 @@ class Authcontroller extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
-    public function register()
+    public function register(UserRequest $request)
     {
-        $validator = validator()->make(request()->all(), [
-            'name' => 'string|required',
-            'email' => 'email|required',
-            'password' => 'string|min:6',
-            'passwordConf' => 'required|same:password',
-
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => 'Registration faild'
-            ]);
-        }
-
         $user = User::create([
-            'name' => request()->get('name'),
-            'email' => request()->get('email'),
-            'password' => bcrypt(request()->get('password'))
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
         ]);
 
         return UserResource::make($user);
@@ -43,8 +30,8 @@ class Authcontroller extends Controller
     public function login(Request $request)
     {
         $token = auth()->attempt([
-            'email' => $request->email,
-            'password' => $request->password,
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
         ]);
 
         if (!$token) {
