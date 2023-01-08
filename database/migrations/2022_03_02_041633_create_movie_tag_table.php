@@ -10,6 +10,7 @@ class CreateMovieTagTable extends Migration
     public function up()
     {
         Schema::create('movie_tag', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('tag_id')->contrained();
             $table->foreignId('movie_id')->constrained();
             $table->timestamps();
