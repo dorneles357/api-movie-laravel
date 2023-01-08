@@ -12,7 +12,11 @@ use App\Models\Movie;
 
 class TagController extends Controller
 {
-    public function store(TagStoreRequest $request)
+    /**
+     * @param TagStoreRequest $request
+     * @return TagResource
+     */
+    public function store(TagStoreRequest $request): TagResource
     {
         $tag = Tag::create([
             "name" => $request->name,
@@ -22,10 +26,10 @@ class TagController extends Controller
     }
 
     /**
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
-    public function destroy($id): void
+    public function destroy(int $id): void
     {
         $tag = Tag::findOrFail($id);
 
