@@ -48,6 +48,7 @@ Route::group([
     Route::get('/{id}', [MovieController::class, 'show']);
     Route::put('/update/{id}', [MovieController::class, 'update']);
     Route::delete('/delete/{id}', [MovieController::class, 'destroy']);
+    Route::post('/assign/tags', [MovieController::class, 'assignTags']);
 });
 
 /*TAGS*/
@@ -56,7 +57,7 @@ Route::group([
     'prefix' => 'tags',
     'namespace' => 'App\Http\Controllers\Api'
 ], function($router){
-    Route::post('/create/{id}', [TagController::class, 'store']);
+    Route::post('/create', [TagController::class, 'store']);
     Route::delete('/delete/{id}', [TagController::class, 'destroy']);
 });
 

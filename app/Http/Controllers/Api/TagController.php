@@ -1,61 +1,34 @@
 <?php
- 
+
 namespace App\Http\Controllers\Api;
 
 use App\Models\Tag;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TagStoreMovieRequest;
+use App\Http\Requests\TagStoreRequest;
+use App\Http\Resources\TagResource;
 use App\Models\Movie;
-use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-
-    public function store(Request $request, $id)
+    public function store(TagStoreRequest $request)
     {
-        $movie = Movie::find($id);
-        $validator = validator()->make(request()->all(), [
-            'name' => 'string|required',
-        ]);
-
-        if(! $movie)
-        {
-            return response()->json(['message'=> 'File not found' ]);
-        }
-
-        if($validator->fails())
-        {
-            return response()->json(['message'=> 'Name cannot be empty' ]);
-        }
-
         $tag = Tag::create([
-            "name"=> $request->name,
+            "name" => $request->name,
         ]);
-        
-        $res_id = $tag->id;
 
-        $movie = Movie::find($id);
-
-        $movie->tags()->attach($res_id);
-
-        return response()->json(["status"=>"create"]);
+        return TagResource::make($tag);
     }
-    
-    public function destroy($id)
+
+    /**
+     * @param [type] $id
+     * @return void
+     */
+    public function destroy($id): void
     {
-
-        $tag = Tag::find($id);
-
-        if(! $tag)
-        {
-            return response()->json(['message'=> 'File not found' ]);
-        }
+        $tag = Tag::findOrFail($id);
 
         $tag->delete($tag);
-
-        return response()->json(['status'=>'deleted']);
     }
-
-
-
 }
