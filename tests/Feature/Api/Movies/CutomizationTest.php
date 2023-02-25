@@ -7,6 +7,7 @@ use App\Models\Tag;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class CutomizationTest extends TestCase
@@ -96,8 +97,19 @@ class CutomizationTest extends TestCase
      */
     public function test_find_movie_by_id(): void
     {
+        $this->withoutMiddleware();
+
         $response = $this->getJson('/api/movies/' . $this->movie->id);
 
         $response->assertStatus(200);
+
+        $response->assertJson(function (AssertableJson $json) {
+            $json->whereAll([
+                'data.id' => $this->movie->id,
+                'data.name' => $this->movie->name,
+                'data.path' => $this->movie->path,
+                'data.type' => $this->movie->type,
+            ]);
+        });
     }
 }
