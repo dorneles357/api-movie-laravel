@@ -42,9 +42,6 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api'
 ], function ($router) {
     Route::post('/create', [MovieController::class, 'store']);
-    Route::get('/index', [MovieController::class, 'index']);
-    Route::get('/index/orderby/asc', [MovieController::class, 'orderbyASC']);
-    Route::get('/index/orderby/desc', [MovieController::class, 'orderbyDESC']);
     Route::get('/{id}', [MovieController::class, 'show']);
     Route::put('/update/{id}', [MovieController::class, 'update']);
     Route::delete('/delete/{id}', [MovieController::class, 'destroy']);

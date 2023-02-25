@@ -6,33 +6,36 @@ use App\Models\Movie;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MovieAssignTagsRequest;
+use App\Http\Resources\MovieResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Storage;
 
 
 
 class MovieController extends Controller
 {
-
-    public function index()
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $movies = Movie::all();
+        $asc = $request->input('asc');
+        $desc = $request->input('desc');
 
-        return response()->json($movies);
-    }
+        if (!$asc && !$desc) {
+            $movies = Movie::all();
+        }
 
-    public function orderbyASC()
-    {
-        $movies = Movie::orderBy('name', 'asc')->get();
+        if ($asc) {
+            $movies = Movie::orderBy('name', 'asc')->get();
+        }
 
-        return response()->json($movies);
-    }
+        if ($desc) {
+            $movies = Movie::orderBy('name', 'desc')->get();
+        }
 
-    public function orderbyDESC()
-    {
-        $movies = Movie::orderBy('name', 'desc')->get();
-
-        return response()->json($movies);
+        return MovieResource::collection($movies);
     }
 
     public function store(Request $request)
