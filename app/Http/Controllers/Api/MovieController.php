@@ -38,6 +38,17 @@ class MovieController extends Controller
         return MovieResource::collection($movies);
     }
 
+    /**
+     * @param int $id
+     * @return MovieResource
+     */
+    public function show(int $id): MovieResource
+    {
+        $movie = Movie::findOrFail($id);
+
+        return MovieResource::make($movie);
+    }
+
     public function store(Request $request)
     {
         if ($request->hasfile('file') && $request->file('file')->isValid()) {
@@ -65,27 +76,6 @@ class MovieController extends Controller
         } else {
             return response()->json(['error' => 'Apenas Videos menores 5mb']);
         }
-    }
-
-    public function show($id)
-    {
-        $movie = Movie::find($id);
-
-        if (!$movie) {
-            return response()->json(['message' => 'File not found']);
-        }
-
-        $tag_array = [];
-        foreach ($movie->tags as $tag) {
-            array_push($tag_array, $tag);
-        }
-
-        $data = [
-            'movie' => $movie,
-            'tags' => $tag_array
-        ];
-
-        return response()->json($data);
     }
 
     public function update(Request $request, $id)
