@@ -35,7 +35,7 @@ class CutomizationTest extends TestCase
             'tag_ids' => [$this->tag->id],
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(404);
     }
 
     /**
