@@ -4,8 +4,9 @@ namespace Tests\Feature\Api\Movies;
 
 use App\Models\Movie;
 use App\Models\Tag;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CutomizationTest extends TestCase
@@ -14,12 +15,18 @@ class CutomizationTest extends TestCase
 
     private Movie $movie;
     private Tag $tag;
+    private Collection $collection;
 
     public function setUp(): void
     {
         parent::setUp();
 
+        $this->collection = Movie::factory()
+            ->count(5)
+            ->Create();
+
         $this->movie = Movie::factory()->createOne();
+
         $this->tag = Tag::factory()->createOne();
     }
 
@@ -45,9 +52,13 @@ class CutomizationTest extends TestCase
      */
     public function test_list_movies(): void
     {
+        $this->withoutMiddleware();
+
         $response = $this->getJson('/api/movies');
 
         $response->assertStatus(200);
+
+        $this->assertEquals($this->collection->count() + 1, count($response['data']));
     }
 
     /**
@@ -55,8 +66,10 @@ class CutomizationTest extends TestCase
      * 
      * @return void
      */
-    public function test_list_movies_asc(): void
+    public function test_list_movies_by_asc(): void
     {
+        $this->withoutMiddleware();
+
         $response = $this->getJson('/api/movies?asc=true');
 
         $response->assertStatus(200);
@@ -67,8 +80,10 @@ class CutomizationTest extends TestCase
      * 
      * @return void
      */
-    public function test_list_movies_desc(): void
+    public function test_list_movies_by_desc(): void
     {
+        $this->withoutMiddleware();
+
         $response = $this->getJson('/api/movies?desc=true');
 
         $response->assertStatus(200);
