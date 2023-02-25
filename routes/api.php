@@ -42,17 +42,14 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api'
 ], function ($router) {
     Route::post('/create', [MovieController::class, 'store']);
-    Route::get('/{id}', [MovieController::class, 'show']);
     Route::put('/update/{id}', [MovieController::class, 'update']);
     Route::delete('/delete/{id}', [MovieController::class, 'destroy']);
-    Route::post('/assign/tags', [MovieController::class, 'assignTags']);
 
     Route::post('/', [MovieController::class, 'store']);
     Route::get('/', [MovieController::class, 'index']);
     Route::get('/{movie_id}', [MovieController::class, 'show']);
     Route::put('/{movie_id}', [MovieController::class, 'update']);
     Route::delete('/{movie_id}', [MovieController::class, 'destroy']);
-
 
     Route::post('/assign/tags', [MovieController::class, 'assignTags']);
 });
